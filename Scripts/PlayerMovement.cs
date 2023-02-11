@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private const string IsJumping = "IsJumping";
+    private const string Speed = "Speed";
+
     [SerializeField] private AudioSource _soundJump;
     [SerializeField] private LayerMask _whatIsGround;
     [SerializeField] private Transform _groundChecker;
     [SerializeField] private Player _player;
+
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _checkerRadius;
@@ -55,14 +59,14 @@ public class PlayerMovement : MonoBehaviour
             transform.Translate(Time.deltaTime * horizontalMove, 0, 0);
         }
 
-        _playerAnimator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+        _playerAnimator.SetFloat(Speed, Mathf.Abs(horizontalMove));
     }
 
     private void Jump()
     {
         if (_isGrounded)
         {
-            _playerAnimator.SetBool("IsJumping", false);
+            _playerAnimator.SetBool(IsJumping, false);
 
             if (Input.GetKey(KeyCode.Space))
             {               
@@ -73,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            _playerAnimator.SetBool("IsJumping", true);
+            _playerAnimator.SetBool(IsJumping, true);
         }
     }
 }
